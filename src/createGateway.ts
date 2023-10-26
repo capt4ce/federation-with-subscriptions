@@ -150,12 +150,14 @@ const createGatewaySchema = async (
       const sdlResponse: any = await httpExecutor({
         document: gql`
           {
-            _sdl
+            _service {
+              sdl
+            }
           }
         `,
       });
 
-      const sdl = sdlResponse?.data?._sdl;
+      const sdl = sdlResponse?.data?._service?._sdl;
 
       if (!sdl) {
         throw new Error("microservice SDL could not be found!");
